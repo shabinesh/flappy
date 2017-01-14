@@ -33,7 +33,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// TODO initialise sdl ttf
+	err = sdl_ttf.Init()
+	if err != nil {
+		log.Fatal("Failed to init fonts library")
+	}
 
 	window, renderer, err = sdl.CreateWindowAndRenderer(windowWidth, windowHeight, sdl.WINDOW_SHOWN)
 	if err != nil {
@@ -43,6 +46,14 @@ func main() {
 	drawTitle("GoLab Bird")
 	sdl.Delay(3000)
 	scene = NewScene()
+
+	go func(fps uint32) {
+		for {
+			scene.drawFrame()
+			renderer.Present()
+			sdl.Delay(1000 / fps)
+		}
+	}(10)
 
 	running := true
 	for running {
