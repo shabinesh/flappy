@@ -2,9 +2,8 @@ package main
 
 import (
 	"github.com/veandco/go-sdl2/sdl"
-	"fmt"
 )
 
 func handleKeyEvent(e *sdl.KeyDownEvent) {
-	fmt.Println("Keyboard events occured")
+	// TODO handle keyboard events for bird and update gravity
 }

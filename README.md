@@ -1,3 +1,3 @@
-Inifinite scrolling of background
+Make the bird fall of gravity and rise it with key events
 
-Animate the bird by rendering each movement in order, 
+[sdl.GetTicks()](https://godoc.org/github.com/veandco/go-sdl2/sdl#GetTicks)

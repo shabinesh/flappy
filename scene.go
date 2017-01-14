@@ -34,6 +34,19 @@ func NewScene() *Scene {
 	s.cam.speed = 10
 	s.cam.backgroundWidth = 2000
 
-	// TODO Initialise bird object
+	// Bird
+	s.bird = &Bird{}
+	for _, f := range []string{"imgs/bird_frame_1.png", "imgs/bird_frame_2.png", "imgs/bird_frame_3.png", "imgs/bird_frame_4.png"} {
+		sur, err := sdl_image.Load(filepath.Join(mediaPath, f))
+		if err != nil {
+			log.Fatal(err, "failed to load bird textures")
+		}
+		t, err := renderer.CreateTextureFromSurface(sur)
+		if err != nil {
+			log.Fatal(err, "failed to load texture")
+		}
+		s.bird.tex = append(s.bird.tex, t)
+	}
+
 	return s
 }
