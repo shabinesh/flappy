@@ -9,9 +9,7 @@ import (
 
 // Scene has all Scene objects
 type Scene struct {
-	cam   *Camera
-	bird  *Bird
-	pipes *PipePair
+	cam *Camera
 }
 
 func (s *Scene) drawFrame() {
@@ -20,6 +18,19 @@ func (s *Scene) drawFrame() {
 
 func NewScene() *Scene {
 	s := new(Scene)
-	// TODO draw background image
+	sur, err := sdl_image.Load(filepath.Join(mediaPath, "imgs/background.png"))
+	if err != nil {
+		log.Fatal(err, "failed to load background")
+	}
+	s.cam = &Camera{}
+
+	s.cam.tex, err = renderer.CreateTextureFromSurface(sur)
+	if err != nil {
+		log.Fatal(err, "failed to load texture")
+	}
+	sur.Free()
+	s.cam.speed = 10
+	s.cam.backgroundWidth = 2000
+
 	return s
 }

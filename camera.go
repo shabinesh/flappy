@@ -2,6 +2,16 @@ package main
 
 import "github.com/veandco/go-sdl2/sdl"
 
+/*        (0,0 )        x     -2024->           (w, 0)                    */
+/*        *****************************************      y                */
+/*        *          *            *               *     |                 */
+/*        *          *            *               *     |                 */
+/*        *          *   1024x740 *               *     v                 */
+/*        *          *            *               *     740               */
+/*        *          *            *               *                       */
+/*        *****************************************                       */
+/*        (0, h)                                  (w, h)                  */
+
 // Camera ...
 type Camera struct {
 	tex             *sdl.Texture
@@ -11,10 +21,5 @@ type Camera struct {
 }
 
 func (c *Camera) draw() {
-	if c.cX+int32(windowWidth) >= c.backgroundWidth {
-		c.cX = 0
-	} else {
-		c.cX += c.speed
-	}
-	renderer.Copy(c.tex, &sdl.Rect{X: c.cX, W: int32(windowWidth), H: int32(windowHeight)}, nil)
+	// TODO Scroll background: perception of movement
 }
