@@ -11,11 +11,11 @@ import (
 type Scene struct {
 	cam   *Camera
 	bird  *Bird
-	pipes *PipePair
 }
 
 func (s *Scene) drawFrame() {
 	s.cam.draw()
+	s.bird.draw()
 }
 
 func NewScene() *Scene {
@@ -34,5 +34,6 @@ func NewScene() *Scene {
 	s.cam.speed = 10
 	s.cam.backgroundWidth = 2000
 
+	// TODO Initialise bird object
 	return s
 }
