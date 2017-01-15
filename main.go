@@ -5,6 +5,8 @@ import (
 
 	"os"
 
+	sdl_ttf "github.com/veandco/go-sdl2/sdl_ttf"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -14,6 +16,7 @@ var (
 	windowHeight  = 600
 	windowWidth   = 800
 	mediaPath     string
+	scene         *Scene
 	lastEventTime uint32
 )
 
@@ -30,17 +33,39 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// TODO Create window
+	err = sdl_ttf.Init()
+	if err != nil {
+		log.Fatal("Failed to init fonts library")
+	}
 
+	window, renderer, err = sdl.CreateWindowAndRenderer(windowWidth, windowHeight, sdl.WINDOW_SHOWN)
 	if err != nil {
 		log.Fatal(err)
 	}
 	window.SetTitle("Golabby")
+	drawTitle("GoLab Bird")
 	sdl.Delay(3000)
+	scene = NewScene()
+
+	go func(fps uint32) {
+		for {
+			scene.drawFrame()
+			renderer.Present()
+			sdl.Delay(1000 / fps)
+		}
+	}(10)
 
 	running := true
 	for running {
-		// TODO Look for events
+		for event := sdl.PollEvent(); event != nil; event = sdl.WaitEvent() {
+			switch event.(type) {
+			case *sdl.QuitEvent:
+				running = false
+				break
+			case *sdl.KeyDownEvent:
+				handleKeyEvent(event.(*sdl.KeyDownEvent))
+			}
+		}
 	}
 
 	window.Destroy()
