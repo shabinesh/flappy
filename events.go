@@ -5,5 +5,9 @@ import (
 )
 
 func handleKeyEvent(e *sdl.KeyDownEvent) {
-	// TODO handle keyboard events for bird and update gravity
+	lastEventTime = sdl.GetTicks()
+	scene.bird.y -= 10
+	if scene.bird.gravity < 0 {
+		scene.bird.gravity = 0
+	}
 }

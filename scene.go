@@ -11,11 +11,13 @@ import (
 type Scene struct {
 	cam   *Camera
 	bird  *Bird
+	pipes *PipePair
 }
 
 func (s *Scene) drawFrame() {
 	s.cam.draw()
 	s.bird.draw()
+	s.pipes.draw()
 }
 
 func NewScene() *Scene {
@@ -48,5 +50,6 @@ func NewScene() *Scene {
 		s.bird.tex = append(s.bird.tex, t)
 	}
 
+	s.pipes = NewPipes(3)
 	return s
 }

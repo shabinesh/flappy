@@ -12,8 +12,15 @@ type Bird struct {
 }
 
 func (b *Bird) draw() {
+	if sdl.GetTicks()-lastEventTime > 200 {
+		b.y += 10
+	}
 
-	// TODO Update gravity and contain bird inside the window
+	if b.y >= int32(windowHeight) {
+		drawTitle("Game Over")
+		sdl.Delay(3000)
+		sdl.Quit()
+	}
 
 	if b.current >= len(b.tex)-1 {
 		b.current = 0
